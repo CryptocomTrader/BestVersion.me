@@ -156,15 +156,15 @@ body {
 }
 
 .timer-container {
-    background: #FF1493; /* Яркий неоновый розовый */
-    color: white;
+    background: #FFFFFF; /* Белый фон для контраста */
+    color: #FF1493; /* Яркий розовый текст */
     text-align: center;
     padding: 30px;
     border-radius: 30px;
     max-width: 400px;
     margin: 40px auto;
-    box-shadow: 0 20px 60px rgba(255, 20, 147, 0.5);
-    border: 6px solid white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border: 6px solid #FF1493;
     position: relative;
     overflow: hidden;
     transform: perspective(1000px) rotateX(5deg);
@@ -186,8 +186,8 @@ body {
 }
 
 .days-counter {
-    background: white;
-    color: #FF1493;
+    background: #FF1493;
+    color: #FFFFFF;
     padding: 30px;
     border-radius: 20px;
     display: inline-block;
