@@ -156,14 +156,14 @@ body {
 }
 
 .timer-container {
-    background: #FFFFFF; /* Белый фон для контраста */
-    color: #FF1493; /* Яркий розовый текст */
+    background: #333333; /* Темный фон */
+    color: #FFFFFF; /* Белый текст */
     text-align: center;
     padding: 30px;
     border-radius: 30px;
     max-width: 400px;
     margin: 40px auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     border: 6px solid #FF1493;
     position: relative;
     overflow: hidden;
