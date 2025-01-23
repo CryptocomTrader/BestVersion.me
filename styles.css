@@ -156,36 +156,39 @@ body {
 }
 
 .timer-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 30px;
-    margin: 30px auto;
+    padding: 25px 20px;
+    margin: 20px auto;
     max-width: 500px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .timer-text {
     color: white;
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 25px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .progress-container {
-    margin: 20px 0;
-    padding: 0 10px;
+    margin: 15px 0;
+    padding: 0 5px;
 }
 
 .progress-bar {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .progress-fill {
@@ -193,30 +196,56 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    background: linear-gradient(to right, #FFB6D9, #FF4B91);
-    border-radius: 2px;
+    background: linear-gradient(to right, #fff, #FFB6D9);
+    border-radius: 3px;
     transition: width 0.5s ease;
 }
 
 .days-counter {
-    margin-top: 25px;
-    color: white;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 25px;
+    border-radius: 15px;
+    display: inline-block;
 }
 
 #days {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 800;
-    margin-right: 10px;
-    background: linear-gradient(135deg, #FFB6D9, #FF4B91);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    line-height: 1.2;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .days-label {
-    font-size: 1.8rem;
-    font-weight: 500;
-    opacity: 0.9;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    opacity: 0.95;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Медиа-запрос для мобильных устройств */
+@media (max-width: 480px) {
+    .timer-container {
+        padding: 20px 15px;
+        margin: 15px auto;
+    }
+
+    .timer-text {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    #days {
+        font-size: 3.5rem;
+    }
+
+    .days-label {
+        font-size: 1.2rem;
+    }
 }
 
 @media (min-width: 768px) {
