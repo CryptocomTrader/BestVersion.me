@@ -83,47 +83,103 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Функция для обновления счетчика до лета
+// Countdown Timer
 function updateCountdown() {
+    const summerDate = new Date(2024, 5, 1); // June 1st, 2024
     const now = new Date();
-    const summerStart = new Date(now.getFullYear(), 5, 1); // 1 июня текущего года
     
-    // Если текущая дата после 1 июня, берем 1 июня следующего года
-    if (now > summerStart) {
-        summerStart.setFullYear(summerStart.getFullYear() + 1);
-    }
+    const diff = summerDate - now;
     
-    const diff = summerStart - now;
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     
-    const countdownElement = document.getElementById('countdown');
-    if (countdownElement) {
-        countdownElement.textContent = days;
-    }
+    document.getElementById('countdown').innerHTML = `${days}д ${hours}ч ${minutes}м`;
 }
 
-// Анимация появления элементов при скролле
-function animateOnScroll() {
-    const elements = document.querySelectorAll('.benefit-card, .result-card, .criteria-item');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1
+// Update countdown every minute
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// Smooth scroll for navigation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Intersection Observer for fade-in animations
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Add animation classes and observe elements
+document.querySelectorAll('.benefit-card, .result-card, .criteria-item, .price-card').forEach(el => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+});
+
+// Add hover animations for cards
+document.querySelectorAll('.benefit-card, .result-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+        this.style.transition = 'all 0.3s ease';
     });
     
-    elements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'all 0.6s ease-out';
-        observer.observe(element);
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
     });
-}
+});
+
+// Add pulse animation to CTA buttons
+document.querySelectorAll('.cta-button').forEach(button => {
+    button.addEventListener('mouseenter', function() {
+        this.querySelector('i').style.transform = 'translateX(5px)';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+        this.querySelector('i').style.transform = 'translateX(0)';
+    });
+});
+
+// Add scroll-triggered animations
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    
+    // Parallax effect for hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+    }
+    
+    // Animate numbers when in view
+    document.querySelectorAll('.result-card h3').forEach(number => {
+        const position = number.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight;
+        
+        if (position < screenPosition) {
+            number.classList.add('number-animation');
+        }
+    });
+});
 
 // Анимация иконок в карточках
 function animateIcons() {
@@ -187,17 +243,7 @@ function animateButtons() {
 
 // Инициализация всех анимаций при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    updateCountdown();
-    animateOnScroll();
     animateIcons();
     animateCheckmarks();
     animateButtons();
-    
-    // Обновляем счетчик каждый день в полночь
-    setInterval(() => {
-        const now = new Date();
-        if (now.getHours() === 0 && now.getMinutes() === 0) {
-            updateCountdown();
-        }
-    }, 60000); // Проверяем каждую минуту
 });
