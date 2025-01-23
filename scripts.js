@@ -85,13 +85,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Countdown Timer
 function updateCountdown() {
-    const summerDate = new Date(2025, 5, 1); // 1 июня 2025
-    const springDate = new Date(2025, 2, 1); // 1 марта 2025
+    // Устанавливаем конечную дату - 1 июня 2025
+    const summerDate = new Date('2025-06-01T00:00:00');
+    // Текущая дата
     const now = new Date();
     
-    const diff = summerDate - now;
-    const totalDiff = summerDate - springDate;
-    const elapsed = now - springDate;
+    // Разница в миллисекундах
+    const diff = summerDate.getTime() - now.getTime();
     
     if (diff <= 0) {
         document.getElementById('days').textContent = "00";
@@ -101,7 +101,8 @@ function updateCountdown() {
         return;
     }
     
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    // Конвертируем разницу в дни
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     
     // Форматируем число дней (добавляем ведущий ноль)
     const formattedDays = days < 10 ? `0${days}` : days;
@@ -113,8 +114,13 @@ function updateCountdown() {
     const daysText = getDaysText(days);
     document.querySelector('.days-label').textContent = daysText;
     
+    // Рассчитываем прогресс (от 1 марта до 1 июня)
+    const springDate = new Date('2025-03-01T00:00:00');
+    const totalPeriod = summerDate.getTime() - springDate.getTime();
+    const elapsedTime = now.getTime() - springDate.getTime();
+    const progress = Math.min(Math.max((elapsedTime / totalPeriod) * 100, 0), 100);
+    
     // Обновляем прогресс-бар
-    const progress = Math.min(Math.max((elapsed / totalDiff) * 100, 0), 100);
     document.querySelector('.progress-fill').style.width = `${progress}%`;
 }
 
