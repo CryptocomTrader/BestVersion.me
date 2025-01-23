@@ -85,35 +85,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Countdown Timer
 function updateCountdown() {
-    const summerDate = new Date(2024, 5, 1); // June 1st, 2024
+    const summerDate = new Date(2024, 5, 1); // 1 июня 2024
     const now = new Date();
     
     const diff = summerDate - now;
+    
+    if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = "Лето уже наступило!";
+        return;
+    }
     
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     
-    document.getElementById('countdown').innerHTML = `${days}д ${hours}ч ${minutes}м`;
+    document.getElementById('countdown').innerHTML = 
+        days + (days === 1 ? " день " : " дней ") +
+        hours + (hours === 1 ? " час " : " часов ") +
+        minutes + (minutes === 1 ? " минута" : " минут");
 }
 
 // Update countdown every minute
 updateCountdown();
 setInterval(updateCountdown, 60000);
-
-// Smooth scroll for navigation
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -246,4 +240,18 @@ document.addEventListener('DOMContentLoaded', () => {
     animateIcons();
     animateCheckmarks();
     animateButtons();
+});
+
+// Smooth scroll for navigation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
