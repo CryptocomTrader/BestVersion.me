@@ -91,23 +91,67 @@ function updateCountdown() {
     const diff = summerDate - now;
     
     if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = "Лето уже наступило!";
+        document.getElementById('days').textContent = "00";
+        document.querySelector('.countdown-text').textContent = "дней";
+        document.querySelector('.timer-subtitle').textContent = "Лето уже наступило!";
         return;
     }
     
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     
-    document.getElementById('countdown').innerHTML = 
-        days + (days === 1 ? " день " : " дней ") +
-        hours + (hours === 1 ? " час " : " часов ") +
-        minutes + (minutes === 1 ? " минута" : " минут");
+    // Форматируем число дней (добавляем ведущий ноль)
+    const formattedDays = days < 10 ? `0${days}` : days;
+    
+    // Обновляем число
+    document.getElementById('days').textContent = formattedDays;
+    
+    // Обновляем склонение слова "дней"
+    const daysText = getDaysText(days);
+    document.querySelector('.countdown-text').textContent = daysText;
 }
 
-// Update countdown every minute
-updateCountdown();
-setInterval(updateCountdown, 60000);
+// Функция для правильного склонения слова "дней"
+function getDaysText(days) {
+    const lastDigit = days % 10;
+    const lastTwoDigits = days % 100;
+    
+    if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+        return 'дней';
+    }
+    
+    if (lastDigit === 1) {
+        return 'день';
+    }
+    
+    if (lastDigit >= 2 && lastDigit <= 4) {
+        return 'дня';
+    }
+    
+    return 'дней';
+}
+
+// Обновляем счетчик каждый день в полночь
+function scheduleNextUpdate() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    
+    const timeUntilMidnight = tomorrow - now;
+    
+    // Обновляем сейчас
+    updateCountdown();
+    
+    // Устанавливаем таймер на следующее обновление в полночь
+    setTimeout(() => {
+        updateCountdown();
+        // Запускаем регулярное обновление каждые 24 часа
+        setInterval(updateCountdown, 24 * 60 * 60 * 1000);
+    }, timeUntilMidnight);
+}
+
+// Запускаем таймер при загрузке страницы
+document.addEventListener('DOMContentLoaded', scheduleNextUpdate);
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
