@@ -7,6 +7,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .timer-container {
+            background: #000000 !important;
+            padding: 30px !important;
+            border-radius: 30px !important;
+            max-width: 400px !important;
+            margin: 40px auto !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+            border: 6px solid #FF1493 !important;
+        }
+
+        .timer-text {
+            color: #FFFFFF !important;
+            font-size: 2rem !important;
+            font-weight: 900 !important;
+            text-transform: uppercase !important;
+            margin-bottom: 25px !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3) !important;
+        }
+
+        .days-counter {
+            background: #FF1493 !important;
+            padding: 30px !important;
+            border-radius: 20px !important;
+            display: inline-block !important;
+            margin: 20px 0 !important;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3) !important;
+        }
+
+        #days {
+            color: #FFFFFF !important;
+            font-size: 8rem !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            display: block !important;
+            margin-bottom: 15px !important;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.4) !important;
+        }
+
+        .days-label {
+            color: #FFFFFF !important;
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 4px !important;
+        }
+
+        @media (max-width: 480px) {
+            .timer-text {
+                font-size: 1.6rem !important;
+            }
+
+            #days {
+                font-size: 6rem !important;
+            }
+
+            .days-label {
+                font-size: 2rem !important;
+            }
+        }
+    </style>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
