@@ -156,72 +156,71 @@ body {
 }
 
 .timer-container {
-    background: #FF4B91; /* Яркий розовый цвет */
-    border-radius: 25px;
-    padding: 30px 20px;
-    margin: 30px auto;
-    max-width: 350px;
+    background: #FF1493; /* Яркий неоновый розовый */
+    color: white;
     text-align: center;
-    box-shadow: 0 15px 50px rgba(255, 75, 145, 0.4);
-    border: 5px solid white;
+    padding: 30px;
+    border-radius: 30px;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 20px 60px rgba(255, 20, 147, 0.5);
+    border: 6px solid white;
     position: relative;
     overflow: hidden;
-    transform: scale(1.05); /* Немного увеличиваем */
-    transition: transform 0.3s ease;
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.3s ease;
 }
 
 .timer-container:hover {
-    transform: scale(1.08);
+    transform: scale(1.05) perspective(1000px) rotateX(0);
+    box-shadow: 0 25px 70px rgba(255, 20, 147, 0.7);
 }
 
 .timer-text {
-    color: white;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 900;
-    margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .days-counter {
     background: white;
-    color: #FF4B91;
-    padding: 25px;
+    color: #FF1493;
+    padding: 30px;
     border-radius: 20px;
+    display: inline-block;
     margin: 20px 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 
 #days {
-    font-size: 6rem;
+    font-size: 7rem;
     font-weight: 900;
     line-height: 1;
-    margin-bottom: 10px;
     display: block;
-    color: #FF4B91;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.2);
 }
 
 .days-label {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #2D3250;
+    letter-spacing: 4px;
 }
 
-/* Медиа-запрос для мобильных устройств */
 @media (max-width: 480px) {
     .timer-container {
-        margin: 20px 15px;
-        padding: 25px 15px;
+        margin: 20px 10px;
+        padding: 20px;
         max-width: 95%;
-        transform: scale(1);
+        transform: none;
     }
 
     .timer-text {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 
     #days {
@@ -229,26 +228,25 @@ body {
     }
 
     .days-label {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 }
 
-/* Анимация для привлечения внимания */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+/* Анимация свечения */
+@keyframes glow {
+    0%, 100% { box-shadow: 0 20px 60px rgba(255, 20, 147, 0.5); }
+    50% { box-shadow: 0 25px 70px rgba(255, 20, 147, 0.7); }
 }
 
-.timer-container::before {
+.timer-container::after {
     content: '';
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-    animation: pulse 2s infinite;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: glow 3s infinite;
     z-index: -1;
 }
 
