@@ -85,15 +85,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Countdown Timer
 function updateCountdown() {
-    const summerDate = new Date(2024, 5, 1); // 1 июня 2024
+    const summerDate = new Date(2025, 5, 1); // 1 июня 2025
+    const springDate = new Date(2025, 2, 1); // 1 марта 2025
     const now = new Date();
     
     const diff = summerDate - now;
+    const totalDiff = summerDate - springDate;
+    const elapsed = now - springDate;
     
     if (diff <= 0) {
         document.getElementById('days').textContent = "00";
-        document.querySelector('.countdown-text').textContent = "дней";
-        document.querySelector('.timer-subtitle').textContent = "Лето уже наступило!";
+        document.querySelector('.days-label').textContent = "дней";
+        document.querySelector('.timer-text').textContent = "Лето уже наступило!";
+        document.querySelector('.progress-fill').style.width = '100%';
         return;
     }
     
@@ -107,7 +111,11 @@ function updateCountdown() {
     
     // Обновляем склонение слова "дней"
     const daysText = getDaysText(days);
-    document.querySelector('.countdown-text').textContent = daysText;
+    document.querySelector('.days-label').textContent = daysText;
+    
+    // Обновляем прогресс-бар
+    const progress = Math.min(Math.max((elapsed / totalDiff) * 100, 0), 100);
+    document.querySelector('.progress-fill').style.width = `${progress}%`;
 }
 
 // Функция для правильного склонения слова "дней"
