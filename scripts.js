@@ -102,9 +102,96 @@ function updateCountdown() {
     }
 }
 
-// Обновляем счетчик при загрузке страницы
+// Анимация появления элементов при скролле
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.benefit-card, .result-card, .criteria-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+    
+    elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'all 0.6s ease-out';
+        observer.observe(element);
+    });
+}
+
+// Анимация иконок в карточках
+function animateIcons() {
+    const icons = document.querySelectorAll('.benefit-card i, .result-card i');
+    icons.forEach(icon => {
+        icon.style.fontSize = '2.5rem';
+        icon.style.color = '#6B50F6';
+        icon.style.marginBottom = '20px';
+        icon.style.display = 'block';
+        
+        // Добавляем эффект пульсации при наведении
+        icon.parentElement.addEventListener('mouseenter', () => {
+            icon.style.transform = 'scale(1.1)';
+            icon.style.transition = 'transform 0.3s ease';
+        });
+        
+        icon.parentElement.addEventListener('mouseleave', () => {
+            icon.style.transform = 'scale(1)';
+        });
+    });
+}
+
+// Анимация чекмарков в критериях
+function animateCheckmarks() {
+    const checkmarks = document.querySelectorAll('.criteria-item i');
+    checkmarks.forEach(checkmark => {
+        checkmark.style.color = '#6B50F6';
+        checkmark.style.marginRight = '10px';
+    });
+}
+
+// Анимация кнопок
+function animateButtons() {
+    const buttons = document.querySelectorAll('.cta-button');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'translateY(-2px)';
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'translateX(5px)';
+                icon.style.transition = 'transform 0.3s ease';
+            }
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0)';
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'translateX(0)';
+            }
+        });
+        
+        button.addEventListener('click', () => {
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 100);
+        });
+    });
+}
+
+// Инициализация всех анимаций при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     updateCountdown();
+    animateOnScroll();
+    animateIcons();
+    animateCheckmarks();
+    animateButtons();
     
     // Обновляем счетчик каждый день в полночь
     setInterval(() => {
@@ -113,22 +200,4 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCountdown();
         }
     }, 60000); // Проверяем каждую минуту
-});
-
-// Добавляем анимацию для кнопок
-document.querySelectorAll('.cta-button').forEach(button => {
-    button.addEventListener('mouseover', () => {
-        button.style.transform = 'scale(1.05)';
-    });
-    
-    button.addEventListener('mouseout', () => {
-        button.style.transform = 'scale(1)';
-    });
-    
-    button.addEventListener('click', () => {
-        button.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            button.style.transform = 'scale(1)';
-        }, 100);
-    });
 });

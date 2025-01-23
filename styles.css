@@ -1,9 +1,10 @@
 :root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --text-color: #2d3436;
-    --background-color: #ffffff;
-    --section-bg: #f8f9fa;
+    --background-color: #F8F9FB;
+    --card-background: #FFFFFF;
+    --text-color: #2A2C35;
+    --primary-color: #6B50F6;
+    --secondary-color: #FF9B9B;
+    --gray-light: #F6F6F6;
 }
 
 * {
@@ -21,38 +22,59 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--primary-color), #8970FF);
     color: white;
-    padding: 100px 20px;
+    padding: 120px 20px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    opacity: 0.1;
 }
 
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
 }
 
 .subtitle {
     font-size: 1.5rem;
     margin-bottom: 40px;
+    opacity: 0.9;
 }
 
 .timer {
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
     margin-bottom: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .timer p {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .timer-subtitle {
@@ -62,45 +84,67 @@ body {
 
 /* Sections */
 section {
-    padding: 80px 20px;
+    padding: 100px 20px;
 }
 
 section:nth-child(even) {
-    background-color: var(--section-bg);
+    background-color: var(--card-background);
 }
 
 h2 {
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     color: var(--text-color);
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 /* Benefits Grid */
 .benefits-grid, .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .benefit-card, .result-card {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(107, 80, 246, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.benefit-card:hover::before {
+    opacity: 1;
 }
 
 .benefit-card:hover, .result-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(107, 80, 246, 0.1);
 }
 
 .benefit-card h3, .result-card h3 {
-    color: var(--primary-color);
+    color: var(--text-color);
     margin-bottom: 15px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 /* Criteria List */
@@ -110,48 +154,82 @@ h2 {
 }
 
 .criteria-item {
-    background: white;
-    padding: 20px;
+    background: var(--card-background);
+    padding: 30px;
     margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(107, 80, 246, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid var(--gray-light);
+}
+
+.criteria-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 25px rgba(107, 80, 246, 0.08);
 }
 
 .criteria-item p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 /* Price Card */
 .price-card {
     max-width: 600px;
     margin: 0 auto;
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--card-background);
+    padding: 60px 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(107, 80, 246, 0.08);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.price-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
 
 .price {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--primary-color);
     margin-bottom: 30px;
+    font-weight: 800;
 }
 
 .price-features {
     list-style: none;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .price-features li {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 1.1rem;
+    color: var(--text-color);
+    padding-left: 30px;
+    position: relative;
+}
+
+.price-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 .limited-offer {
     margin-top: 20px;
     font-size: 0.9rem;
-    opacity: 0.8;
+    color: var(--secondary-color);
+    font-weight: 500;
 }
 
 /* Buttons */
@@ -159,7 +237,7 @@ h2 {
     display: inline-block;
     background: var(--primary-color);
     color: white;
-    padding: 15px 40px;
+    padding: 20px 50px;
     border-radius: 30px;
     text-decoration: none;
     font-size: 1.2rem;
@@ -167,17 +245,19 @@ h2 {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(107, 80, 246, 0.2);
 }
 
 .cta-button:hover {
-    background: #ff5252;
-    transform: scale(1.05);
+    background: #7B63FF;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(107, 80, 246, 0.3);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     
     .subtitle {
@@ -190,25 +270,35 @@ h2 {
     
     .benefits-grid, .results-grid {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
     
     .price-card {
-        padding: 20px;
+        padding: 40px 20px;
+        margin: 0 20px;
+    }
+    
+    .benefit-card, .result-card {
+        padding: 30px;
     }
 }
 
 @media (max-width: 480px) {
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .timer p {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .cta-button {
-        padding: 12px 30px;
-        font-size: 1rem;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+    }
+    
+    section {
+        padding: 60px 20px;
     }
 }
 
